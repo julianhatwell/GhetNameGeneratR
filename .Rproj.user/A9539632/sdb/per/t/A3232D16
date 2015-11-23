@@ -1,0 +1,17 @@
+{
+    "contents" : "checkExistsMaster <- function() {\n  if (!(file.exists(\"MasterPhonemes.txt\"))) {\n    stop(\"Missing Master Phonemes File\")\n  }\n  read.csv(\"MasterPhonemes.txt\", header = TRUE, stringsAsFactors = FALSE)\n}\n\ncheckFirstAndLast <- function(fst, lst) {\n  if (!(is.logical(fst) | is.logical(lst))) {\n    stop(\"Only TRUE or FALSE values allowed for first and last placement\")\n  }\n}\n\ncheckExistsPhoneme <- function(phon, phons) {\n  for (ph in phon) {\n    if(any(phons == phon)) {\n      stop(paste(ph, \"already exists, use updatePhoneme to change existing\"))\n    }\n  }\n}",
+    "created" : 1448238452639.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1052064761",
+    "id" : "A3232D16",
+    "lastKnownWriteTime" : 1448180214,
+    "path" : "C:/Dev/Study/R/GhetNameGeneratR/commonValidations.R",
+    "project_path" : "commonValidations.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

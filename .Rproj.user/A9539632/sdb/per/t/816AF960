@@ -1,0 +1,17 @@
+{
+    "contents" : "generateName <- function(numPhons, randomness = 1) {\n  numPhons <- ifelse(numPhons < 2, 2, numPhons - 2)\n  mPhons <- checkExistsMaster()\n  firstPhons <- mPhons[mPhons$canBeFirst == TRUE, \"phoneme\"]\n  lastPhons <- mPhons[mPhons$canBeLast == TRUE, \"phoneme\"]\n  first <- sample(firstPhons, 1)\n  first <- paste0(toupper(substr(first, 1, 1)), substr(first, 2, nchar(first)))\n  mids <- character(0)\n  if (numPhons > 0) {\n    for (i in 1:numPhons) {\n    mids <- paste0(mids, sample(mPhons$phoneme, 1))\n    }\n  }\n  last <- sample(lastPhons, 1)\n  paste0(first, mids, last)\n}",
+    "created" : 1448238459567.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2928615866",
+    "id" : "816AF960",
+    "lastKnownWriteTime" : 1448202561,
+    "path" : "C:/Dev/Study/R/GhetNameGeneratR/generateName.R",
+    "project_path" : "generateName.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
