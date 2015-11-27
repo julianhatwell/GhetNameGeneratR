@@ -18,7 +18,8 @@ updatePhoneme <- function(phon, fst, lst) {
   mPhons <- checkExistsMaster()
   checkFirstAndLast(fst, lst)
   
-  newPhons <- rbind(mPhons[mPhons$phoneme != tolower(phon),], c(tolower(phon), fst, lst))
+  phon <- tolower(phon)
+  newPhons <- rbind(mPhons[mPhons$phoneme != phon,], c(phon, fst, lst))
   commitPhons(newPhons)
   print(paste("Updated phoneme ", phon, " to Master Phonemes File"))
 }
