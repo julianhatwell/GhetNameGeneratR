@@ -12,6 +12,7 @@
 "ba",TRUE,TRUE
 "bae",TRUE,TRUE
 "be",TRUE,TRUE
+"berg",TRUE,TRUE
 "bh'",TRUE,FALSE
 "bha",TRUE,TRUE
 "bhe",TRUE,TRUE
@@ -194,7 +195,7 @@
 "hzi",TRUE,TRUE
 "hzo",TRUE,TRUE
 "hzu",TRUE,TRUE
-"hzy",TRUE,TRUE
+"hzy",FALSE,TRUE
 "i'",TRUE,FALSE
 "ia",TRUE,TRUE
 "ie",TRUE,TRUE
@@ -335,7 +336,7 @@
 "ple",TRUE,TRUE
 "pli",TRUE,TRUE
 "plo",TRUE,TRUE
-"plu",TRUE,TRUE
+"plu",TRUE,FALSE
 "ply",TRUE,TRUE
 "po",TRUE,TRUE
 "pr'",TRUE,FALSE
@@ -406,9 +407,11 @@
 "she",TRUE,TRUE
 "shi",TRUE,TRUE
 "sho",TRUE,TRUE
+"shonne",TRUE,TRUE
 "shu",TRUE,TRUE
 "shy",TRUE,TRUE
 "si",TRUE,TRUE
+"sius",TRUE,TRUE
 "sk'",TRUE,FALSE
 "ska",TRUE,TRUE
 "ske",TRUE,TRUE
@@ -476,6 +479,7 @@
 "su",TRUE,TRUE
 "sw'",TRUE,FALSE
 "swa",TRUE,TRUE
+"sway",TRUE,TRUE
 "swe",TRUE,TRUE
 "swi",TRUE,TRUE
 "swo",TRUE,TRUE
