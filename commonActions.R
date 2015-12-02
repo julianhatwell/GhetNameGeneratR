@@ -1,10 +1,12 @@
+getMasterPhonemes <- function() GhetNameEnv$MasterPhonemes
+
 commitPhons <- function(phonDF) {
-  write.csv(phonDF[order(phonDF$phoneme),], "MasterPhonemes.txt", row.names = FALSE)
+  MasterPhonemes <<- phonDF[order(phonDF$phoneme),]
 }
 
 makePhoneme <- function(phon, fst, lst) {
   # common validation
-  mPhons <- checkExistsMaster()
+  mPhons <- getMasterPhonemes()
   checkFirstAndLast(fst, lst)
   checkExistsPhoneme(phon, mPhons$phoneme)
   
@@ -15,7 +17,7 @@ makePhoneme <- function(phon, fst, lst) {
 
 updatePhoneme <- function(phon, fst, lst) {
   # common validation
-  mPhons <- checkExistsMaster()
+  mPhons <- getMasterPhonemes()
   checkFirstAndLast(fst, lst)
   
   phon <- tolower(phon)
@@ -26,7 +28,7 @@ updatePhoneme <- function(phon, fst, lst) {
 
 deletePhoneme <- function(phon) {
   # common validation
-  mPhons <- checkExistsMaster()
+  mPhons <- getMasterPhonemes()
   
   newPhons <- mPhons[mPhons$phoneme != tolower(phon),]
   commitPhons(newPhons)
@@ -51,7 +53,7 @@ addPhonemes <- function(phonDF) {
       (!(ncol(phonDF == 3)))) {
     stop("You must provide a three column data frame")
   }
-  mPhons <- checkExistsMaster()
+  mPhons <- getMasterPhonemes()
   checkFirstAndLast(phonDF[[2]], phonDF[[3]])
   sapply(as.character(phonDF$phoneme), checkExistsPhoneme, mPhons$phoneme)
   
