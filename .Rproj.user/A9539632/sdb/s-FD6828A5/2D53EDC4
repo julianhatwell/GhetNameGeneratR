@@ -1,10 +1,10 @@
 {
-    "contents" : "\n\ngenerateName <- function(phonLength, gender = \"u\", randomness = 1) {\n  numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)\n  mPhons <- getMasterPhonemes()\n  firstPhons <- mPhons[mPhons$canBeFirst == TRUE, \"phoneme\"]\n  lastPhons <- mPhons[mPhons$canBeLast == TRUE, \"phoneme\"]\n  first <- sample(firstPhons, 1)\n  first <- paste0(toupper(substr(first, 1, 1)), substr(first, 2, nchar(first)))\n  phonList <- character(0)\n  mids <- character(0)\n  if (numPhons > 0) {\n    for (i in 1:numPhons) {\n      mid <- sample(mPhons$phoneme, 1)\n      mids <- paste0(mids, mid)\n      phonList <- c(phonList, mid)\n    }\n  }\n  last <- sample(lastPhons, 1)\n  \n  gName <- list()\n  class(gName) <- \"ghetName\"\n  gName$name <- paste0(first, mids, last)\n  gName$phonList <- c(first, phonList, last)\n  gName$phonLength <- phonLength\n  gName$Gender <- gender\n  gName$Like <- as.logical(NA)\n  \n  return(gName)\n}",
+    "contents" : "print.ghetName <- function (gN) {\n  gen <- ifelse(gN$gender == \"f\", \"girl's\"\n                , ifelse(gN$gender == \"m\", \"boy's\"\n                         , \"unisex\"))\n  output <- cat(\"Your name is:\", gN$name\n              ,\"\\n\\nThis is a\", gen, \"name\")\n  invisible(output)\n}\n\ngenerateName <- function(phonLength, gender = \"u\", randomness = 1) {\n  numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)\n  mPhons <- getMasterPhonemes()\n  firstPhons <- mPhons[mPhons$canBeFirst == TRUE, \"phoneme\"]\n  lastPhons <- mPhons[mPhons$canBeLast == TRUE, \"phoneme\"]\n  first <- sample(firstPhons, 1)\n  first <- paste0(toupper(substr(first, 1, 1)), substr(first, 2, nchar(first)))\n  phonList <- character(0)\n  mids <- character(0)\n  if (numPhons > 0) {\n    for (i in 1:numPhons) {\n      mid <- sample(mPhons$phoneme, 1)\n      mids <- paste0(mids, mid)\n      phonList <- c(phonList, mid)\n    }\n  }\n  last <- sample(lastPhons, 1)\n  \n  gName <- list()\n  class(gName) <- \"ghetName\"\n  gName$name <- paste0(first, mids, last)\n  gName$phonList <- c(first, phonList, last)\n  gName$phonLength <- phonLength\n  gName$gender <- gender\n  gName$like <- as.logical(NA)\n  \n  return(gName)\n}",
     "created" : 1449142134180.000,
-    "dirty" : false,
+    "dirty" : true,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "120867799",
+    "hash" : "4125875847",
     "id" : "2D53EDC4",
     "lastKnownWriteTime" : 1449142656,
     "path" : "C:/Dev/Study/R/GhetNameGeneratR/generateName.R",
