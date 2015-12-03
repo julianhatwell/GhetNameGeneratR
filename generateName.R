@@ -1,3 +1,5 @@
+
+
 generateName <- function(phonLength, gender = "u", randomness = 1) {
   numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)
   mPhons <- getMasterPhonemes()
@@ -17,12 +19,12 @@ generateName <- function(phonLength, gender = "u", randomness = 1) {
   last <- sample(lastPhons, 1)
   
   gName <- list()
+  class(gName) <- "ghetName"
   gName$name <- paste0(first, mids, last)
   gName$phonList <- c(first, phonList, last)
   gName$phonLength <- phonLength
   gName$Gender <- gender
   gName$Like <- as.logical(NA)
   
-  class(gName) <- "ghetName"
-  gName
+  return(gName)
 }

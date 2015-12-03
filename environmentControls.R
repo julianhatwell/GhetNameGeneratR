@@ -7,7 +7,7 @@ if (is.null(get0("MasterPhonemes", envir=GhetNameEnv))) {
     stop("Missing Master Phonemes File")
   }
   
-  assign("MasterPhonemes"
+  assign("MasterPhonemes", envir = GhetNameEnv
          , read.csv("MasterPhonemes.txt"
                     , header = TRUE
                     , stringsAsFactors = FALSE))
@@ -20,7 +20,7 @@ if (is.null(get0("MasterPhonemes", envir=GhetNameEnv))) {
 ghetClose <- function() {
   # NB Right now concurrency = 1
   write.csv(GhetNameEnv$MasterPhonemes, "MasterPhonemes.txt", row.names = FALSE)
-  rm(GhetNameEnv)
+  rm(GhetNameEnv, envir = .GlobalEnv)
   
   # TO DO - keep all the functions in the environment and get rid of everything on exit
 }

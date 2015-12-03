@@ -1,0 +1,17 @@
+{
+    "contents" : "ghetInit <- function() {\nassign(\"GhetNameEnv\", new.env(), envir=.GlobalEnv)\n\nif (is.null(get0(\"MasterPhonemes\", envir=GhetNameEnv))) {\n  \n  if (!(file.exists(\"MasterPhonemes.txt\"))) {\n    stop(\"Missing Master Phonemes File\")\n  }\n  \n  assign(\"MasterPhonemes\", envir = GhetNameEnv\n         , read.csv(\"MasterPhonemes.txt\"\n                    , header = TRUE\n                    , stringsAsFactors = FALSE))\n\n  # TO DO - get performance/probablities\n  \n  }\n}\n\nghetClose <- function() {\n  # NB Right now concurrency = 1\n  write.csv(GhetNameEnv$MasterPhonemes, \"MasterPhonemes.txt\", row.names = FALSE)\n  rm(GhetNameEnv, envir = .GlobalEnv)\n  \n  # TO DO - keep all the functions in the environment and get rid of everything on exit\n}",
+    "created" : 1449142443532.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1348858016",
+    "id" : "D8D59BE8",
+    "lastKnownWriteTime" : 1449143045,
+    "path" : "C:/Dev/Study/R/GhetNameGeneratR/environmentControls.R",
+    "project_path" : "environmentControls.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
