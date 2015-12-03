@@ -1,4 +1,19 @@
+print.ghetName <- function (gN) {
+  gen <- ifelse(gN$gender == "f", "girl's"
+                , ifelse(gN$gender == "m", "boy's"
+                         , "unisex"))
+  output <- cat("Your name is:", gN$name
+              ,"\n\nThis is a", gen, "name")
+  invisible(output)
+}
 
+
+"[<-.ghetName" <- function(gN, subscript, value) {
+  gN$phonList[subscript] <- value
+  gN$name <- paste0(gN$phonList, collapse = "")
+  print(gN)
+  return(gN)
+}
 
 generateName <- function(phonLength, gender = "u", randomness = 1) {
   numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)
@@ -23,8 +38,8 @@ generateName <- function(phonLength, gender = "u", randomness = 1) {
   gName$name <- paste0(first, mids, last)
   gName$phonList <- c(first, phonList, last)
   gName$phonLength <- phonLength
-  gName$Gender <- gender
-  gName$Like <- as.logical(NA)
+  gName$gender <- gender
+  gName$like <- as.logical(NA)
   
   return(gName)
 }
