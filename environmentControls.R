@@ -1,7 +1,11 @@
 ghetInit <- function() {
-assign("GhetNameEnv", new.env(), envir=.GlobalEnv)
-
-if (is.null(get0("MasterPhonemes", envir=GhetNameEnv))) {
+  source("environmentControls.R")
+  source("commonValidations.R")
+  source("commonActions.R")
+  source("generateName.R")
+  assign("GhetNameEnv", new.env(), envir=.GlobalEnv)
+  
+  if (is.null(get0("MasterPhonemes", envir=GhetNameEnv))) {
   
   if (!(file.exists("MasterPhonemes.txt"))) {
     stop("Missing Master Phonemes File")

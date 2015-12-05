@@ -1,27 +1,39 @@
 getMasterPhonemes <- function() GhetNameEnv$MasterPhonemes
 
 commitPhons <- function(phonDF) {
-  MasterPhonemes <<- phonDF[order(phonDF$phoneme),]
+  GhetNameEnv$MasterPhonemes <<- phonDF[order(phonDF$phoneme),]
 }
 
-makePhoneme <- function(phon, fst, lst) {
+genderAssignment <- function(gender) {
+  m <- if(gender %in% c("m", "u")) TRUE else FALSE
+  f <- if(gender %in% c("f", "u")) TRUE else FALSE
+  return(c(m = m,f = f))
+}
+
+makePhoneme <- function(phon, fst, mid, lst, gen) {
   # common validation
   mPhons <- getMasterPhonemes()
-  checkFirstAndLast(fst, lst)
+  checkFirstAndLast(fst, mid, lst)
+  checkGenderAssignment(gender)
   checkExistsPhoneme(phon, mPhons$phoneme)
   
-  newPhons <- rbind(mPhons, c(tolower(phon), fst, lst))
+  #process steps
+  gender <- genderAssignment(gen)
+  newPhons <- rbind(mPhons, c(tolower(phon), fst, mid, lst, gender["m"], gender["f"]))
   commitPhons(newPhons)
   print(paste("Added phoneme ", phon, " to Master Phonemes File"))
 }
 
-updatePhoneme <- function(phon, fst, lst) {
+updatePhoneme <- function(phon, fst, mid, lst, gen) {
   # common validation
   mPhons <- getMasterPhonemes()
-  checkFirstAndLast(fst, lst)
+  checkFirstAndLast(fst, mid, lst)
+  checkGenderAssignment(gen)
   
+  #process steps
+  gender <- genderAssignment(gen)
   phon <- tolower(phon)
-  newPhons <- rbind(mPhons[mPhons$phoneme != phon,], c(phon, fst, lst))
+  newPhons <- rbind(mPhons[mPhons$phoneme != phon,], c(phon, fst, mid, lst, gender["m"], gender["f"]))
   commitPhons(newPhons)
   print(paste("Updated phoneme ", phon, " to Master Phonemes File"))
 }
@@ -44,17 +56,20 @@ permutePhoneme <- function(stem) {
     phoneme <- c(phoneme, paste0(stem, adj))
   }
   canBeFirst <- rep(TRUE, times = length(adjuncts))
+  canBeMid <- canBeFirst
   canBeLast <- c(FALSE, rep(TRUE, times = length(adjuncts) - 1))
+  male <- canBeFirst
+  female <- canBeFirst
   data.frame(phoneme, canBeFirst, canBeLast)
 }
 
 addPhonemes <- function(phonDF) {
   if (!(is.data.frame(phonDF)) |
       (!(ncol(phonDF == 3)))) {
-    stop("You must provide a three column data frame")
+    stop("You must provide a 5 column data frame")
   }
   mPhons <- getMasterPhonemes()
-  checkFirstAndLast(phonDF[[2]], phonDF[[3]])
+  checkFirstAndLast(phonDF[[2]], phonDF[[3]], phonDF[[4]])
   sapply(as.character(phonDF$phoneme), checkExistsPhoneme, mPhons$phoneme)
   
   newPhons <- rbind(mPhons, phonDF)
