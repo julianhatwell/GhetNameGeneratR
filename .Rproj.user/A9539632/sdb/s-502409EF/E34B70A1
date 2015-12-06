@@ -1,0 +1,17 @@
+{
+    "contents" : "checkFirstAndLast <- function(fst, mid, lst) {\n  if (!(is.logical(fst) & is.logical(mid) & is.logical(lst))) {\n    stop(\"Only TRUE or FALSE (logical) values allowed for first and last placement\")\n  }\n}\n\ncheckGenderAssignment <- function(gen) {\n  for (g in gen) {\n    if(!(any(g %in% c(\"m\", \"f\", \"u\")))) {\n      stop(paste(\"gender must be one of m, f or u\"))\n    }\n  } \n}\n\ncheckExistsPhoneme <- function(phon, phons) {\n  for (ph in phon) {\n    if(any(phons == phon)) {\n      stop(paste(ph, \"already exists, use updatePhoneme to change existing\"))\n    }\n  }\n}",
+    "created" : 1449370026371.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1539925748",
+    "id" : "E34B70A1",
+    "lastKnownWriteTime" : 1449315154,
+    "path" : "C:/Dev/Study/R/GhetNameGeneratR/commonValidations.R",
+    "project_path" : "commonValidations.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

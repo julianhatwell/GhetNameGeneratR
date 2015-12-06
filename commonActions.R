@@ -14,7 +14,7 @@ makePhoneme <- function(phon, fst, mid, lst, gen) {
   # common validation
   mPhons <- getMasterPhonemes()
   checkFirstAndLast(fst, mid, lst)
-  checkGenderAssignment(gender)
+  checkGenderAssignment(gen)
   checkExistsPhoneme(phon, mPhons$phoneme)
   
   #process steps

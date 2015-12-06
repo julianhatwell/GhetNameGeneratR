@@ -1,4 +1,4 @@
-print.ghetName <- function (gN) {
+ghetprint.ghetName <- function (gN) {
   gen <- ifelse(gN$gender == "f", "girl's"
                 , ifelse(gN$gender == "m", "boy's"
                          , "unisex"))
@@ -21,10 +21,10 @@ generateName <- function(phonLength, gen = "u", randomness = 1) {
   numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)
   mPhons <- getMasterPhonemes()
   firstPhons <- mPhons[mPhons$canBeFirst == TRUE, "phoneme"]
-  lastPhons <- mPhons[mPhons$canBeLast == TRUE &
-                        mPhons$male == gender["m"] &
-                        mPhons$female == gender["f"]
-                        , "phoneme"]
+  lastPhons <- mPhons[mPhons$canBeLast,]
+  if (gen == "m") lastPhons <- lastPhons[mPhons$male, "phoneme"]
+  if (gen == "f") lastPhons <- lastPhons[mPhons$female, "phoneme"]
+                        
   first <- sample(firstPhons, 1)
   first <- paste0(toupper(substr(first, 1, 1)), substr(first, 2, nchar(first)))
   phonList <- character(0)

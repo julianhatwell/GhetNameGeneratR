@@ -23,7 +23,9 @@ ghetInit <- function() {
 
 ghetClose <- function() {
   # NB Right now concurrency = 1
+  if (nrow(GhetNameEnv$MasterPhonemes) > 0) {
   write.csv(GhetNameEnv$MasterPhonemes, "MasterPhonemes.txt", row.names = FALSE)
+  }
   rm(GhetNameEnv, envir = .GlobalEnv)
   
   # TO DO - keep all the functions in the environment and get rid of everything on exit
