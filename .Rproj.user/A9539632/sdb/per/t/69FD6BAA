@@ -1,0 +1,17 @@
+{
+    "contents" : "print.ghetName <- function (gN) {\n  gen <- ifelse(gN$gender == \"f\", \"girl's\"\n                , ifelse(gN$gender == \"m\", \"boy's\"\n                         , \"unisex\"))\n  output <- cat(\"Your name is:\", gN$name\n              ,\"\\n\\nThis is a\", gen, \"name\")\n  invisible(output)\n}\n\n\n\"[<-.ghetName\" <- function(gN, subscript, value) {\n  gN$phonList[subscript] <- value\n  gN$name <- paste0(gN$phonList, collapse = \"\")\n  print(gN)\n  return(gN)\n}\n\ngenerateName <- function(phonLength, gen = \"u\", randomness = 1) {\n  checkGenderAssignment(gen)\n  gender <- genderAssignment(gen)\n  numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)\n  mPhons <- getMasterPhonemes()\n  firstPhons <- mPhons[mPhons$canBeFirst == TRUE, \"phoneme\"]\n  lastPhons <- mPhons[mPhons$canBeLast,]\n  if (gen == \"m\") lastPhons <- lastPhons[mPhons$male,]\n  if (gen == \"f\") lastPhons <- lastPhons[mPhons$female,]\n  lastPhons <- lastPhons[,\"phoneme\"]\n  \n  first <- sample(firstPhons, 1)\n  first <- paste0(toupper(substr(first, 1, 1)), substr(first, 2, nchar(first)))\n  phonList <- character(0)\n  mids <- character(0)\n  if (numPhons > 0) {\n    for (i in 1:numPhons) {\n      mid <- sample(mPhons$phoneme, 1)\n      mids <- paste0(mids, mid)\n      phonList <- c(phonList, mid)\n    }\n  }\n  last <- sample(lastPhons, 1)\n  \n  gName <- list()\n  class(gName) <- \"ghetName\"\n  gName$name <- paste0(first, mids, last)\n  gName$phonList <- c(first, phonList, last)\n  gName$phonLength <- phonLength\n  gName$gender <- gen\n  gName$like <- as.logical(NA)\n  \n  return(gName)\n}",
+    "created" : 1449365853460.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "248465023",
+    "id" : "69FD6BAA",
+    "lastKnownWriteTime" : 1449395825,
+    "path" : "C:/Dev/Study/R/GhetNameGeneratR/generateName.R",
+    "project_path" : "generateName.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
