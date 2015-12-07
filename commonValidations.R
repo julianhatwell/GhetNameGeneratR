@@ -1,5 +1,5 @@
-checkFirstAndLast <- function(fst, mid, lst) {
-  if (!(is.logical(fst) & is.logical(mid) & is.logical(lst))) {
+checkFirstAndMid <- function(fst, mid) {
+  if (!(is.logical(fst) & is.logical(mid))) {
     stop("Only TRUE or FALSE (logical) values allowed for first and last placement")
   }
 }

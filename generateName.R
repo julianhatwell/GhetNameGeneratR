@@ -21,7 +21,7 @@ generateName <- function(phonLength, gen = "u", randomness = 1) {
   numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)
   mPhons <- getMasterPhonemes()
   firstPhons <- mPhons[mPhons$canBeFirst == TRUE, "phoneme"]
-  lastPhons <- mPhons[mPhons$canBeLast,]
+  lastPhons <- mPhons
   if (gen == "m") lastPhons <- lastPhons[mPhons$male,]
   if (gen == "f") lastPhons <- lastPhons[mPhons$female,]
   lastPhons <- lastPhons[,"phoneme"]
