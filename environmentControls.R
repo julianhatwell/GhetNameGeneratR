@@ -15,9 +15,6 @@ ghetInit <- function() {
          , read.csv("MasterPhonemes.txt"
                     , header = TRUE
                     , stringsAsFactors = FALSE))
-
-  # TO DO - get performance/probablities
-  
   }
 }
 

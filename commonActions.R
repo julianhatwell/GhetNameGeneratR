@@ -19,7 +19,7 @@ makePhoneme <- function(phon, fst, mid, gen) {
   
   #process steps
   gender <- genderAssignment(gen)
-  newPhons <- rbind(mPhons, c(tolower(phon), fst, mid, gender["m"], gender["f"]))
+  newPhons <- rbind(mPhons, c(tolower(phon), fst, mid, gender["m"], gender["f"], rep(0,8)))
   commitPhons(newPhons)
   print(paste("Added phoneme ", phon, " to Master Phonemes File"))
 }
@@ -32,9 +32,8 @@ updatePhoneme <- function(phon, fst, mid, gen) {
   
   #process steps
   gender <- genderAssignment(gen)
-  phon <- tolower(phon)
-  newPhons <- rbind(mPhons[mPhons$phoneme != phon,], c(phon, fst, mid, gender["m"], gender["f"]))
-  commitPhons(newPhons)
+  mphons[mphons$phoneme == phon, c("canBeFirst", "canBeMid", "maleEnding", "femaleEnding")] <- c(fst, mid, gender["m"], gender["f"])
+  commitPhons(mPhons)
   print(paste("Updated phoneme ", phon, " to Master Phonemes File"))
 }
 
@@ -51,8 +50,8 @@ deletePhonemes <- function(phons) sapply(phons, deletePhoneme)
 
 addPhonemes <- function(phonDF) {
   if (!(is.data.frame(phonDF)) |
-      (!(ncol(phonDF == 5)))) {
-    stop("You must provide a 5 column data frame")
+      (!(ncol(phonDF %>% c(5,13))))) {
+    stop("You must provide a 5 or 13 column data frame")
   }
   mPhons <- getMasterPhonemes()
   checkFirstAndMid(phonDF[[2]], phonDF[[3]])
@@ -62,3 +61,11 @@ addPhonemes <- function(phonDF) {
   commitPhons(newPhons)
   print("Added multiple phonemes to Master Phonemes File")
 }
+
+resetPhonRatings <- function(phon) {
+  mPhons <- getMasterPhonemes()
+  mPhons[mPhons$phoneme == "on", 6:13] <- 0
+  commitPhons(mPhons)
+  print(paste("Ratings reset to zero for phoneme", phon))
+}
+  
