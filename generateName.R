@@ -15,25 +15,38 @@ print.ghetName <- function (gN) {
   return(gN)
 }
 
-generateName <- function(phonLength, gen = "u", randomness = 1) {
+includePhon <- function(liked, out) {
+  if (length(liked) != length(out)) {
+    stop("liked and out parameters must be same length")
+  }
+  n <- length(out)
+    # check liked and out have same length
+  # use length as sample size
+  p <- rbeta(n, liked + 25, out + 25)
+  b <- as.logical(rbinom(n, 1, p))
+  return(b)
+}
+
+generateName <- function(phonLength = 3, gen = "u", randomness = 1) {
   checkGenderAssignment(gen)
   gender <- genderAssignment(gen)
   numPhons <- ifelse(phonLength < 2, 2, phonLength - 2)
   mPhons <- getMasterPhonemes()
-  firstPhons <- mPhons[mPhons$canBeFirst == TRUE, "phoneme"]
-  if (gen == "u") lastPhons <- mPhons[mPhons$maleEnding | mPhons$femaleEnding, "phoneme"]
-  if (gen == "m") lastPhons <- mPhons[mPhons$maleEnding, "phoneme"]
-  if (gen == "f") lastPhons <- mPhons[mPhons$femaleEnding, "phoneme"]
+  firstPhons <- mPhons[mPhons$canBeFirst & includePhon(mPhons$likedFirst, mPhons$outFirst), "phoneme"]
+  if (gen == "u") lastPhons <- mPhons[(mPhons$maleEnding | mPhons$femaleEnding) & includePhon(mPhons$likedMale + mPhons$likedFemale, mPhons$outMale + mPhons$outFemale), "phoneme"]
+  if (gen == "m") lastPhons <- mPhons[mPhons$maleEnding & includePhon(mPhons$likedMale, mPhons$outMale), "phoneme"]
+  if (gen == "f") lastPhons <- mPhons[mPhons$femaleEnding & includePhon(mPhons$likedFemale, mPhons$outFemale), "phoneme"]
   
   first <- sample(firstPhons, 1)
   currentOutFirst <- mPhons[mPhons$phoneme == first, "outFirst"]
   mPhons[mPhons$phoneme == first, "outFirst"] <- currentOutFirst + 1
   first <- paste0(toupper(substr(first, 1, 1)), substr(first, 2, nchar(first)))
+  middle <- mPhons[mPhons$canBeMid & includePhon(mPhons$likedMid, mPhons$outMid), "phoneme"]
   phonList <- character(0)
   mids <- character(0)
   if (numPhons > 0) {
     for (i in 1:numPhons) {
-      mid <- sample(mPhons$phoneme, 1)
+      mid <- sample(middle, 1)
       currentOutMid <- mPhons[mPhons$phoneme == mid, "outMid"]
       mPhons[mPhons$phoneme == mid, "outMid"] <- currentOutMid + 1
       mids <- paste0(mids, mid)
@@ -83,9 +96,4 @@ saveName <- function(sN) {
     }
     commitPhons(mPhons)
   }
-}
-
-likeName <- function(lN) {
-  lN[["like"]] <- TRUE
-  # this isn't working
 }

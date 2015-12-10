@@ -12,7 +12,7 @@ ghetInit <- function() {
   }
   
   assign("MasterPhonemes", envir = GhetNameEnv
-         , read.csv("MasterPhonemes.txt"
+         , read.csv("MasterPhonemes.csv"
                     , header = TRUE
                     , stringsAsFactors = FALSE))
   }
@@ -21,7 +21,7 @@ ghetInit <- function() {
 ghetClose <- function() {
   # NB Right now concurrency = 1
   if (nrow(GhetNameEnv$MasterPhonemes) > 0) {
-  write.csv(GhetNameEnv$MasterPhonemes, "MasterPhonemes.txt", row.names = FALSE)
+  write.csv(GhetNameEnv$MasterPhonemes, "MasterPhonemes.", row.names = FALSE)
   }
   rm(GhetNameEnv, envir = .GlobalEnv)
   

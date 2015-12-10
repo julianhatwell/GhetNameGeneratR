@@ -57,6 +57,10 @@ addPhonemes <- function(phonDF) {
   checkFirstAndMid(phonDF[[2]], phonDF[[3]])
   sapply(as.character(phonDF$phoneme), checkExistsPhoneme, mPhons$phoneme)
   
+  if (ncol(phonDF == 5)) {
+    cbind(phonDF, rep(0,8))
+  }
+  
   newPhons <- rbind(mPhons, phonDF)
   commitPhons(newPhons)
   print("Added multiple phonemes to Master Phonemes File")
