@@ -1,12 +1,12 @@
 {
-    "contents" : "ghetInit <- function() {\n  source(\"environmentControls.R\")\n  source(\"commonValidations.R\")\n  source(\"commonActions.R\")\n  source(\"generateName.R\")\n  assign(\"GhetNameEnv\", new.env(), envir=.GlobalEnv)\n  \n  if (is.null(get0(\"MasterPhonemes\", envir=GhetNameEnv))) {\n  \n  if (!(file.exists(\"MasterPhonemes.txt\"))) {\n    stop(\"Missing Master Phonemes File\")\n  }\n  \n  assign(\"MasterPhonemes\", envir = GhetNameEnv\n         , read.csv(\"MasterPhonemes.csv\"\n                    , header = TRUE\n                    , stringsAsFactors = FALSE))\n  }\n}\n\nghetClose <- function() {\n  # NB Right now concurrency = 1\n  if (nrow(GhetNameEnv$MasterPhonemes) > 0) {\n  write.csv(GhetNameEnv$MasterPhonemes, \"MasterPhonemes.\", row.names = FALSE)\n  }\n  rm(GhetNameEnv, envir = .GlobalEnv)\n  \n  # TO DO - keep all the functions in the environment and get rid of everything on exit\n}",
+    "contents" : "ghetInit <- function() {\n  source(\"environmentControls.R\")\n  source(\"commonValidations.R\")\n  source(\"commonActions.R\")\n  source(\"generateName.R\")\n  assign(\"GhetNameEnv\", new.env(), envir=.GlobalEnv)\n  \n  if (is.null(get0(\"MasterPhonemes\", envir=GhetNameEnv))) {\n  \n  if (!(file.exists(\"MasterPhonemes.csv\"))) {\n    stop(\"Missing Master Phonemes File\")\n  }\n  \n  assign(\"MasterPhonemes\", envir = GhetNameEnv\n         , read.csv(\"MasterPhonemes.csv\"\n                    , header = TRUE\n                    , stringsAsFactors = FALSE))\n  }\n}\n\nghetClose <- function() {\n  # NB Right now concurrency = 1\n  if (nrow(GhetNameEnv$MasterPhonemes) > 0) {\n  write.csv(GhetNameEnv$MasterPhonemes, \"MasterPhonemes.csv\", row.names = FALSE)\n  }\n  rm(GhetNameEnv, envir = .GlobalEnv)\n  \n  # TO DO - keep all the functions in the environment and get rid of everything on exit\n}",
     "created" : 1449712052875.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2062926693",
+    "hash" : "1342641253",
     "id" : "6CC7F0D0",
-    "lastKnownWriteTime" : 1449722993,
+    "lastKnownWriteTime" : 1449744707,
     "path" : "D:/github/GhetNameGeneratR/environmentControls.R",
     "project_path" : "environmentControls.R",
     "properties" : {

@@ -7,7 +7,7 @@ ghetInit <- function() {
   
   if (is.null(get0("MasterPhonemes", envir=GhetNameEnv))) {
   
-  if (!(file.exists("MasterPhonemes.txt"))) {
+  if (!(file.exists("MasterPhonemes.csv"))) {
     stop("Missing Master Phonemes File")
   }
   
@@ -21,7 +21,7 @@ ghetInit <- function() {
 ghetClose <- function() {
   # NB Right now concurrency = 1
   if (nrow(GhetNameEnv$MasterPhonemes) > 0) {
-  write.csv(GhetNameEnv$MasterPhonemes, "MasterPhonemes.", row.names = FALSE)
+  write.csv(GhetNameEnv$MasterPhonemes, "MasterPhonemes.csv", row.names = FALSE)
   }
   rm(GhetNameEnv, envir = .GlobalEnv)
   

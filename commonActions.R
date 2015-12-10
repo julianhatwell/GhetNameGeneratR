@@ -32,7 +32,7 @@ updatePhoneme <- function(phon, fst, mid, gen) {
   
   #process steps
   gender <- genderAssignment(gen)
-  mphons[mphons$phoneme == phon, c("canBeFirst", "canBeMid", "maleEnding", "femaleEnding")] <- c(fst, mid, gender["m"], gender["f"])
+  mPhons[mPhons$phoneme == phon, c("canBeFirst", "canBeMid", "maleEnding", "femaleEnding")] <- c(fst, mid, gender["m"], gender["f"])
   commitPhons(mPhons)
   print(paste("Updated phoneme ", phon, " to Master Phonemes File"))
 }
