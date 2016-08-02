@@ -1,3 +1,6 @@
+# this file needs to be loaded first
+# then run ghetInit() to create the application
+# ghet Close() to close and clean up
 ghetInit <- function() {
   source("environmentControls.R")
   source("commonValidations.R")
